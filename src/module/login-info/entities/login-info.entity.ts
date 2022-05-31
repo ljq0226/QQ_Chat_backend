@@ -1,11 +1,8 @@
-import { ChatContent } from 'src/module/chat-content/entities/chat-content.entity';
 import User from 'src/module/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';

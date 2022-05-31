@@ -11,6 +11,7 @@ import { FriendsService } from './friends.service';
 import { CreateFriendDto } from './dto/create-friend.dto';
 import { UpdateFriendDto } from './dto/update-friend.dto';
 import { ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { get } from 'http';
 @ApiTags('QQ好友')
 @Controller('friends')
 export class FriendsController {
@@ -21,9 +22,15 @@ export class FriendsController {
   getInfoById(@Param('id') id: number) {
     return this.friendsService.getInfoById(id);
   }
-  @ApiOperation({ summary: '通过friend_id获取好友QQ' })
-  @Get('/friend')
-  getAllInfo() {
-    return this.friendsService.getAllFriendInfo();
+  @ApiOperation({ summary: '添加好友关系' })
+  @Post('/friend')
+  getAllInfo(@Body() body: CreateFriendDto) {
+    return this.friendsService.addFriend(body);
+  }
+
+  @ApiOperation({ summary: '测试' })
+  @Get('/friend/test')
+  test() {
+    return this.friendsService.test();
   }
 }

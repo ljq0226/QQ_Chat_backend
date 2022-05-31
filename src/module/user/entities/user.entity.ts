@@ -29,10 +29,7 @@ export default class User {
   username: string;
 
   @OneToMany(() => Friend, (friend) => friend.selfQQ)
-  selfQQ: number;
-
-  @OneToMany(() => Friend, (friend) => friend.friendQQ)
-  friendQQ: number;
+  selfQQ: Friend[];
 
   @OneToMany(() => Grouping, (grouping) => grouping.userQQ)
   grouping: Grouping[];

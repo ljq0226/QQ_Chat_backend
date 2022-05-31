@@ -14,8 +14,7 @@ export default class Friend {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.friendQQ)
-  @JoinColumn({ name: 'friendQQ' })
+  @Column()
   friendQQ: number;
 
   @ManyToOne(() => User, (user) => user.selfQQ)

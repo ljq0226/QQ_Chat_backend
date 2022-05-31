@@ -32,11 +32,18 @@ export class UserService {
   }
   //获取好友列表
   async getFriendsList(qq: number) {
-    const friendsList = await this.userRepository
+    const data = await this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.selfQQ', 'selfQQ')
-      .where('selfQQ= :qq', { qq })
-      .getManyAndCount();
+      .where('user.qq= :qq', { qq })
+      .getOne();
+    const friendsList = [];
+    for (const item of data.selfQQ as any) {
+      const friend = await this.userRepository.find({
+        where: { qq: item.friendQQ },
+      });
+      friendsList.push(friend);
+    }
     return friendsList;
   }
   //获取该用户的登录信息

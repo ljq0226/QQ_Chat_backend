@@ -46,6 +46,7 @@ export class UserController {
   //   return this.userService.findAll();
   // }
 
+  //通过传入qq号 获取好友列表
   @ApiOperation({ summary: '获取好友信息' })
   @Get('friends/:qq')
   getFriends(@Param('qq') qq: number) {
