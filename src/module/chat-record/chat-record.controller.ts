@@ -20,27 +20,4 @@ export class ChatRecordController {
   create(@Body() createChatRecordDto: CreateChatRecordDto) {
     return this.chatRecordService.create(createChatRecordDto);
   }
-
-  @Get()
-  findAll() {
-    return this.chatRecordService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.chatRecordService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateChatRecordDto: UpdateChatRecordDto,
-  ) {
-    return this.chatRecordService.update(+id, updateChatRecordDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.chatRecordService.remove(+id);
-  }
 }

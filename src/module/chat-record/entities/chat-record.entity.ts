@@ -1,16 +1,22 @@
 import { ChatContent } from 'src/module/chat-content/entities/chat-content.entity';
-import { CreateDateColumn } from 'typeorm';
+import User from 'src/module/user/entities/user.entity';
+import { CreateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('chat_record')
 export class ChatRecord {
   @PrimaryGeneratedColumn()
-  chatRecord_id: number;
-  @Column({ name: 'chatRecord_senderQQ' })
+  id: number;
+
+  @ManyToOne(() => User, (user) => user.chatSender)
+  @JoinColumn({ name: 'senderQQ' })
   senderQQ: number;
-  @Column({ name: 'chatRecord_receiverQQ' })
+
+  @ManyToOne(() => User, (user) => user.chatReceiver)
+  @JoinColumn({ name: 'receiverQQ' })
   receiverQQ: number;
-  @OneToMany(() => ChatContent, (chat_content) => chat_content.chatRecord)
+
+  @OneToMany(() => ChatContent, (chat_content) => chat_content.contentId)
   chatContent: ChatContent[];
 
   @CreateDateColumn()

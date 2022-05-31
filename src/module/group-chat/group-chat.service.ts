@@ -19,16 +19,4 @@ export class GroupChatService {
   async findAll() {
     return await this.groupChatRepository.find();
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} groupChat`;
-  }
-
-  update(id: number, updateGroupChatDto: UpdateGroupChatDto) {
-    return `This action updates a #${id} groupChat`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} groupChat`;
-  }
 }

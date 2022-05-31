@@ -3,6 +3,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Repository } from 'typeorm';
+import Friend from '../friends/entities/friend.entity';
 @Injectable()
 export class UserService {
   constructor(
@@ -33,8 +34,8 @@ export class UserService {
   async getFriendsList(qq: number) {
     const friendsList = await this.userRepository
       .createQueryBuilder('user')
-      .leftJoinAndSelect('user.friend', 'friend')
-      .where('friend.selfQq = :qq', { qq })
+      .leftJoinAndSelect('user.selfQQ', 'selfQQ')
+      .where('selfQQ= :qq', { qq })
       .getManyAndCount();
     return friendsList;
   }

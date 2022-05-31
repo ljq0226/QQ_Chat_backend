@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import {
   BeforeInsert,
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
@@ -10,12 +11,15 @@ import {
   OneToMany,
   OneToOne,
   PrimaryColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Grouping } from '../../grouping/entities/grouping.entity';
 import { UserGender } from '../enum';
 import { LoginInfo } from 'src/module/login-info/entities/login-info.entity';
 import { GroupChat } from 'src/module/group-chat/entities/group-chat.entity';
+import Friend from 'src/module/friends/entities/friend.entity';
+import { ChatRecord } from 'src/module/chat-record/entities/chat-record.entity';
 
 @Entity('user')
 export default class User {
@@ -24,8 +28,19 @@ export default class User {
   @Column({ length: 20 })
   username: string;
 
-  @OneToMany(() => Grouping, (grouping) => grouping.user)
+  @OneToMany(() => Friend, (friend) => friend.selfQQ)
+  selfQQ: number;
+
+  @OneToMany(() => Friend, (friend) => friend.friendQQ)
+  friendQQ: number;
+
+  @OneToMany(() => Grouping, (grouping) => grouping.userQQ)
   grouping: Grouping[];
+
+  @OneToMany(() => ChatRecord, (chatRecord) => chatRecord.senderQQ)
+  chatSender: ChatRecord[];
+  @OneToMany(() => ChatRecord, (chatRecord) => chatRecord.receiverQQ)
+  chatReceiver: ChatRecord[];
 
   @ManyToMany(() => GroupChat, (groupChat) => groupChat.users)
   @JoinTable({
@@ -63,11 +78,12 @@ export default class User {
   @Column({ default: 'DoYourJob' })
   signature: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  create_time: Date;
+  @CreateDateColumn()
+  createDate: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  update_time: Date;
+  @UpdateDateColumn()
+  updatedDate: Date;
+
   //对密码进行加密处理
   @BeforeInsert()
   async encryptPwd() {

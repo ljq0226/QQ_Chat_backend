@@ -7,7 +7,7 @@ import {
   ManyToMany,
 } from 'typeorm';
 
-@Entity('GroupChat')
+@Entity('group_chat')
 export class GroupChat {
   @PrimaryGeneratedColumn()
   groupId: number;

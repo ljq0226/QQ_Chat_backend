@@ -46,15 +46,14 @@ export class UserController {
   //   return this.userService.findAll();
   // }
 
-  @ApiOperation({ summary: '加好友' })
+  @ApiOperation({ summary: '获取好友信息' })
   @Get('friends/:qq')
   getFriends(@Param('qq') qq: number) {
-    console.log(qq);
     return this.userService.getFriendsList(qq);
   }
-  @ApiOperation({ summary: '测试一对一' })
-  @Get('test/:qq')
-  getLoginStatus(@Param('qq') qq: number) {
-    return this.userService.getloginInfo(qq);
-  }
+  // @ApiOperation({ summary: '测试一对一' })
+  // @Get('test/:qq')
+  // getLoginStatus(@Param('qq') qq: number) {
+  //   return this.userService.getloginInfo(qq);
+  // }
 }

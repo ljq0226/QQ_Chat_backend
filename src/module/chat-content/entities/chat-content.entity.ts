@@ -1,21 +1,13 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { ChatRecord } from '../../chat-record/entities/chat-record.entity';
 
 @Entity('chat_content')
 export class ChatContent {
-  @PrimaryGeneratedColumn({ name: 'chatContent_id' })
-  id: number;
-
-  @Column({ name: 'chatContent_content' })
-  content: string;
-
+  @PrimaryColumn()
   @ManyToOne(() => ChatRecord, (chatRecord) => chatRecord.chatContent)
-  @JoinColumn({ name: 'chatRecordId' })
-  chatRecord: ChatRecord;
+  @JoinColumn({ name: 'contentId' })
+  contentId: number;
+
+  @Column({ name: 'content' })
+  content: string;
 }

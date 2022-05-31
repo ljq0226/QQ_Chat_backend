@@ -20,27 +20,4 @@ export class ChatContentController {
   create(@Body() createChatContentDto: CreateChatContentDto) {
     return this.chatContentService.create(createChatContentDto);
   }
-
-  @Get()
-  findAll() {
-    return this.chatContentService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.chatContentService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateChatContentDto: UpdateChatContentDto,
-  ) {
-    return this.chatContentService.update(+id, updateChatContentDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.chatContentService.remove(+id);
-  }
 }

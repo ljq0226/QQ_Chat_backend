@@ -1,17 +1,25 @@
 import User from 'src/module/user/entities/user.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity('grouping')
 export class Grouping {
   @PrimaryGeneratedColumn()
-  grouping_id: number;
+  id: number;
 
   @Column()
-  grouping_name: string;
+  name: string;
 
   @ManyToOne(() => User, (user) => user.grouping)
-  user: number;
+  @JoinColumn({ name: 'userQQ' })
+  userQQ: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  create_time: Date;
+  @CreateDateColumn()
+  createDate: Date;
 }
