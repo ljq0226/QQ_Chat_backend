@@ -1,23 +1,14 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChatContentService } from './chat-content.service';
 import { CreateChatContentDto } from './dto/create-chat-content.dto';
-import { UpdateChatContentDto } from './dto/update-chat-content.dto';
 @ApiTags('聊天内容')
-@Controller('chat-content')
+@Controller('chatContent')
 export class ChatContentController {
   constructor(private readonly chatContentService: ChatContentService) {}
-
+  @ApiOperation({ summary: '发送消息' })
   @Post()
-  create(@Body() createChatContentDto: CreateChatContentDto) {
-    return this.chatContentService.create(createChatContentDto);
+  test(@Body() body: CreateChatContentDto) {
+    return this.chatContentService.create(body);
   }
 }

@@ -1,9 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { LoginInfo } from './entities/login-info.entity';
-
+import { checkEntity } from '../../util/check';
 @Injectable()
 export class LoginInfoService {
   constructor(
@@ -16,9 +16,7 @@ export class LoginInfoService {
     const { qq } = newLoginInfo;
     const qqUserInfo = await this.userService.findOne(qq);
 
-    if (!qqUserInfo) {
-      throw new HttpException('该用户不存在', HttpStatus.BAD_REQUEST);
-    }
+    checkEntity(qqUserInfo, '用户');
     const { loginInfoId } = qqUserInfo;
     let entity;
     //判断是否已经存在登录信息表

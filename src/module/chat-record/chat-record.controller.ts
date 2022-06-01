@@ -1,23 +1,14 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Post, Body } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChatRecordService } from './chat-record.service';
 import { CreateChatRecordDto } from './dto/create-chat-record.dto';
-import { UpdateChatRecordDto } from './dto/update-chat-record.dto';
 @ApiTags('聊天记录')
-@Controller('chat-record')
+@Controller('chatRecord')
 export class ChatRecordController {
   constructor(private readonly chatRecordService: ChatRecordService) {}
-
-  @Post()
-  create(@Body() createChatRecordDto: CreateChatRecordDto) {
-    return this.chatRecordService.create(createChatRecordDto);
+  @ApiOperation({ summary: '发送消息' })
+  @Post('sendContent')
+  create(@Body() body: CreateChatRecordDto) {
+    return this.chatRecordService.sendContent(body);
   }
 }

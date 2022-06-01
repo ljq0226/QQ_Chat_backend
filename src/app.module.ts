@@ -32,7 +32,7 @@ import { ChatContentModule } from './module/chat-content/chat-content.module';
         password: configService.get('DB_PASSWORD', 'adminljq'), // 密码
         database: configService.get('DB_DATABASE', 'QQChat'), //数据库名
         timezone: '+08:00', //服务器上配置的时区
-        synchronize: false, //根据实体自动创建数据库表， 生产环境建议关闭
+        synchronize: true, //根据实体自动创建数据库表， 生产环境建议关闭
         autoLoadEntities: true, //自动导入entities
       }),
     }),
