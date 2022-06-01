@@ -11,13 +11,13 @@ import { LoginInfoService } from './login-info.service';
 import { CreateLoginInfoDto } from './dto/create-login-info.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 @ApiTags('登录信息')
-@Controller('login-info')
+@Controller('login')
 export class LoginInfoController {
   constructor(private readonly loginInfoService: LoginInfoService) {}
-  @ApiOperation({ summary: '创建新的信息' })
-  @Post('loginInfo')
+  @ApiOperation({ summary: '登录' })
+  @Post('')
   create(@Body() createLoginInfoDto: CreateLoginInfoDto) {
-    return this.loginInfoService.create(createLoginInfoDto);
+    return this.loginInfoService.login(createLoginInfoDto);
   }
   @ApiOperation({ summary: '获取所有的登录状态' })
   @Get()

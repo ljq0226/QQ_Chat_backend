@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Friend from './entities/friend.entity';
-import { Brackets, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 @Injectable()
 export class FriendsService {
@@ -11,6 +11,7 @@ export class FriendsService {
     private readonly userService: UserService,
   ) {}
 
+  //通过好友关系id获取好友信息
   async getInfoById(id) {
     return await this.friendRepository.find({
       relations: ['selfQQ'],

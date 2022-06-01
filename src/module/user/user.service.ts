@@ -28,7 +28,10 @@ export class UserService {
   }
 
   async findOne(qq) {
-    return await this.userRepository.findOne({ where: { qq } });
+    return await this.userRepository.findOne({
+      relations: ['loginInfoId'],
+      where: { qq },
+    });
   }
   //获取好友列表
   async getFriendsList(qq: number) {
@@ -54,5 +57,8 @@ export class UserService {
       .where('user.qq = :qq', { qq })
       .getOne();
     return logininfo.loginInfoId;
+  }
+  async saveUser(user) {
+    return await this.userRepository.save(user);
   }
 }
