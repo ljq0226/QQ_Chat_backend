@@ -13,24 +13,23 @@ export class LoginInfoService {
   ) {}
 
   async login(newLoginInfo) {
-    const { qq } = newLoginInfo;
-    const qqUserInfo = await this.userService.findOne(qq);
-
-    checkEntity(qqUserInfo, '用户');
-    const { loginInfoId } = qqUserInfo;
-    let entity;
-    //判断是否已经存在登录信息表
-    if (loginInfoId) {
-      entity = await this.loginInfoRepository.update(loginInfoId.id, {
-        isAlive: newLoginInfo.isAlive,
-        ipAddress: newLoginInfo.ipAddress,
-        portNumber: newLoginInfo.portNumber,
-      });
-    } else {
-      entity = await this.loginInfoRepository.save(newLoginInfo);
-    }
-    qqUserInfo.loginInfoId = entity.id;
-    return this.userService.saveUser(qqUserInfo);
+    // const { qq } = newLoginInfo;
+    // const qqUserInfo = await this.userService.findOne(qq);
+    // checkEntity(qqUserInfo, '用户');
+    // const { loginInfoId } = qqUserInfo;
+    // let entity;
+    // //判断是否已经存在登录信息表
+    // if (loginInfoId) {
+    //   entity = await this.loginInfoRepository.update(loginInfoId.id, {
+    //     isAlive: newLoginInfo.isAlive,
+    //     ipAddress: newLoginInfo.ipAddress,
+    //     portNumber: newLoginInfo.portNumber,
+    //   });
+    // } else {
+    //   entity = await this.loginInfoRepository.save(newLoginInfo);
+    // }
+    // qqUserInfo.loginInfoId = entity.id;
+    // return this.userService.saveUser(qqUserInfo);
   }
 
   async findAll() {

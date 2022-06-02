@@ -15,11 +15,11 @@ export class UserService {
    * @param createUser
    */
   async register(createUser: CreateUserDto) {
-    const qqNumber = Math.floor(Math.random() * 100000000);
-    createUser.qq = qqNumber;
-    const newUser = await this.userRepository.create(createUser);
-    console.log(newUser);
-    return await this.userRepository.save(newUser);
+    // const qqNumber = Math.floor(Math.random() * 100000000).toString();
+    // createUser.qq = qqNumber;
+    // const newUser = await this.userRepository.create(createUser);
+    // console.log(newUser);
+    // return await this.userRepository.save(newUser);
   }
 
   async findAll() {
@@ -33,29 +33,12 @@ export class UserService {
     });
   }
   //获取好友列表
-  async getFriendsList(qq: number) {
-    const data = await this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.selfQQ', 'selfQQ')
-      .where('user.qq= :qq', { qq })
-      .getOne();
-    const friendsList = [];
-    for (const item of data.selfQQ as any) {
-      const friend = await this.userRepository.find({
-        where: { qq: item.friendQQ },
-      });
-      friendsList.push(friend);
-    }
-    return friendsList;
+  async getFriendsList(qq) {
+    return;
   }
   //获取该用户的登录信息
-  async getloginInfo(qq: number) {
-    const logininfo = await this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.loginInfoId', 'loginInfoId')
-      .where('user.qq = :qq', { qq })
-      .getOne();
-    return logininfo.loginInfoId;
+  async getloginInfo(qq) {
+    return;
   }
   async saveUser(user) {
     return await this.userRepository.save(user);

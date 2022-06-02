@@ -6,6 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
+  RelationId,
 } from 'typeorm';
 
 @Entity('grouping')
@@ -18,7 +19,9 @@ export class Grouping {
 
   @ManyToOne(() => User, (user) => user.grouping)
   @JoinColumn({ name: 'userQQ' })
-  userQQ: number;
+  user: User;
+  @RelationId((g: Grouping) => g.user)
+  userQQ: string;
 
   @CreateDateColumn()
   createDate: Date;

@@ -12,11 +12,7 @@ export class GroupChatService {
     private readonly groupChatRepository: Repository<GroupChat>,
   ) {}
 
-  create(createGroupChatDto: CreateGroupChatDto) {
+  create(createGroupChatDto) {
     return 'This action adds a new groupChat';
-  }
-
-  async findAll() {
-    return await this.groupChatRepository.find();
   }
 }

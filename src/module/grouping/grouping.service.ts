@@ -17,10 +17,10 @@ export class GroupingService {
   }
 
   async getGroupingById(id) {
-    console.log(id);
-    return await this.groupingRepository
-      .createQueryBuilder('group')
-      .where('group.grouping_id = :id', { id })
-      .getOne();
+    // console.log(id);
+    // return await this.groupingRepository
+    //   .createQueryBuilder('group')
+    //   .where('group.grouping_id = :id', { id })
+    //   .getOne();
   }
 }

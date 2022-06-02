@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   JoinColumn,
   ManyToOne,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -14,14 +15,16 @@ export class ChatRecord {
   id: number;
 
   @ManyToOne(() => User, (user) => user.chatSender)
-  @JoinColumn({ name: 'senderQQ' })
-  senderQQ: number;
+  sender: User;
+  @RelationId((c: ChatRecord) => c.sender)
+  senderQQ: string;
 
   @ManyToOne(() => User, (user) => user.chatReceiver)
-  @JoinColumn({ name: 'receiverQQ' })
-  receiverQQ: number;
+  receiver: User;
+  @RelationId((c: ChatRecord) => c.sender)
+  receiverQQ: string;
 
-  @OneToMany(() => ChatContent, (chat_content) => chat_content.contentId)
+  @OneToMany(() => ChatContent, (chat_content) => chat_content.chatRecord)
   chatContent: ChatContent[];
 
   @UpdateDateColumn()

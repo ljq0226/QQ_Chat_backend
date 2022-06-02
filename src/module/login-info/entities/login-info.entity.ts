@@ -21,7 +21,7 @@ export class LoginInfo {
   @Column({ default: false })
   isAlive: boolean;
 
-  @OneToOne(() => User, (user) => user.loginInfoId)
+  @OneToOne(() => User, (user) => user.loginInfo)
   userSelf: User;
   @CreateDateColumn()
   createDate: Date;

@@ -27,10 +27,4 @@ export class FriendsController {
   getAllInfo(@Body() body: CreateFriendDto) {
     return this.friendsService.addFriend(body);
   }
-
-  @ApiOperation({ summary: '测试' })
-  @Get('/friend/test')
-  test() {
-    return this.friendsService.test();
-  }
 }

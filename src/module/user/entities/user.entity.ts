@@ -11,6 +11,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
@@ -24,32 +25,40 @@ import { ChatRecord } from 'src/module/chat-record/entities/chat-record.entity';
 @Entity('user')
 export default class User {
   @PrimaryColumn()
-  qq: number;
+  qq: string;
   @Column({ length: 20 })
   username: string;
 
-  @OneToMany(() => Friend, (friend) => friend.selfQQ)
-  selfQQ: Friend[];
-
-  @OneToMany(() => Grouping, (grouping) => grouping.userQQ)
+  //好友关系
+  @OneToMany(() => Friend, (friend) => friend.self)
+  friendShip_self: Friend[];
+  @OneToMany(() => Friend, (friend) => friend.friend)
+  friendShip_friend: Friend[];
+  //分组
+  @OneToMany(() => Grouping, (grouping) => grouping.user)
   grouping: Grouping[];
 
-  @OneToMany(() => ChatRecord, (chatRecord) => chatRecord.senderQQ)
+  //作为消息发送者和接受者
+  @OneToMany(() => ChatRecord, (chatRecord) => chatRecord.sender)
   chatSender: ChatRecord[];
-  @OneToMany(() => ChatRecord, (chatRecord) => chatRecord.receiverQQ)
+  @OneToMany(() => ChatRecord, (chatRecord) => chatRecord.receiver)
   chatReceiver: ChatRecord[];
 
+  //群关系
   @ManyToMany(() => GroupChat, (groupChat) => groupChat.users)
   @JoinTable({
     name: 'user-groupChat',
     joinColumn: { name: 'userQQ', referencedColumnName: 'qq' },
-    inverseJoinColumn: { name: 'groupChat', referencedColumnName: 'groupId' },
+    inverseJoinColumn: { name: 'groupChatId', referencedColumnName: 'groupId' },
   })
   groupChats: GroupChat[];
 
+  //登录信息
   @OneToOne(() => LoginInfo)
   @JoinColumn({ name: 'loginInfoId' })
-  loginInfoId: LoginInfo;
+  loginInfo: LoginInfo;
+  @RelationId((u: User) => u.loginInfo)
+  loginInfoId: number;
 
   //对返回数据实现过滤password字段
   @Exclude()
