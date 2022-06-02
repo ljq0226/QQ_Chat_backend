@@ -8,7 +8,7 @@ import Friend from '../friends/entities/friend.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([User, Friend])],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, User],
   exports: [UserService],
 })
 export class UserModule {}

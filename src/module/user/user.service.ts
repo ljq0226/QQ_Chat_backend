@@ -15,20 +15,22 @@ export class UserService {
    * @param createUser
    */
   async register(createUser: CreateUserDto) {
-    // const qqNumber = Math.floor(Math.random() * 100000000).toString();
-    // createUser.qq = qqNumber;
-    // const newUser = await this.userRepository.create(createUser);
-    // console.log(newUser);
-    // return await this.userRepository.save(newUser);
+    const qqNumber = Math.floor(Math.random() * 100000000).toString();
+    createUser.qq = qqNumber;
+    //创建一个新的登录信息表
+
+    const newUser = this.userRepository.create(createUser);
+    console.log(newUser);
+    return await this.userRepository.save(newUser);
   }
 
   async findAll() {
     return await this.userRepository.find();
   }
 
-  async findOne(qq) {
+  async findOne(qq: string, relations = []) {
     return await this.userRepository.findOne({
-      relations: ['loginInfoId'],
+      relations,
       where: { qq },
     });
   }

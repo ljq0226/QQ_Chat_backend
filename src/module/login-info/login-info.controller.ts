@@ -15,7 +15,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 export class LoginInfoController {
   constructor(private readonly loginInfoService: LoginInfoService) {}
   @ApiOperation({ summary: '登录' })
-  @Post('')
+  @Post()
   create(@Body() createLoginInfoDto: CreateLoginInfoDto) {
     return this.loginInfoService.login(createLoginInfoDto);
   }

@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateLoginInfoDto {
   @ApiProperty({ description: 'QQ号' })
   @IsNotEmpty()
-  qq: number;
+  qq: string;
 
   @ApiProperty({ description: '是否上线' })
   @IsNotEmpty()

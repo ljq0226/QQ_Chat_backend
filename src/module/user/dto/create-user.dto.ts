@@ -10,5 +10,5 @@ export class CreateUserDto {
   @IsNotEmpty({ message: '请输入密码' })
   password: string;
 
-  qq: number;
+  qq: string;
 }
