@@ -1,17 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { LoginInfo } from './entities/login-info.entity';
 import { checkEntity } from '../../util/check';
-import User from '../user/entities/user.entity';
 @Injectable()
 export class LoginInfoService {
   constructor(
     @InjectRepository(LoginInfo)
-    @InjectRepository(User)
     private readonly loginInfoRepository: Repository<LoginInfo>,
+    // @InjectRepository(User)
+    // private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
+    private readonly connection: Connection,
   ) {}
 
   async login(loginInfo) {

@@ -36,7 +36,17 @@ export class UserService {
   }
   //获取好友列表
   async getFriendsList(qq) {
-    return;
+    const { friendShip_self } = await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.friendShip_self', 'fs')
+      .leftJoinAndSelect('fs.friend', 'friend')
+      .where('user.qq = :qq', { qq })
+      .getOne();
+    const friend = [];
+    for (const item of friendShip_self) {
+      friend.push(item.friend);
+    }
+    return friend;
   }
   //获取该用户的登录信息
   async getloginInfo(qq) {

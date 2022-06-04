@@ -15,11 +15,11 @@ export class LocalStorage extends PassportStrategy(Strategy) {
   ) {
     // 如果不是username、password， 在constructor中配置
     super({
-      qqField: 'qq',
+      usernameField: 'qq',
       passwordField: 'password',
     } as IStrategyOptions);
   }
-  async validate(qq: number, password: string) {
+  async validate(qq: string, password: string) {
     // validate是LocalStrategy的内置方法， 主要就是现实了用户查询以及密码对比，因为存的密码是加密后的，没办法直接对比用户名密码，只能先根据用户名查出用户，再比对密码
     const user = await this.userRepository
       .createQueryBuilder('user')
